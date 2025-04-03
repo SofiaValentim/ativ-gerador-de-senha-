@@ -1,0 +1,95 @@
+import { useState } from "react";
+ 
+function App() {
+
+  const [contadorNormal, setContadorNormal] = useState(0);
+  const [contadorPrioritario, setContadorPrioritario] = useState(0);
+  const [contadorAltaPrioridade, setContadorAltaPrioridade] = useState(0);
+  const [senhaGerada, setSenhaGerada] = useState("");
+ 
+  const gerarSenha = (tipo) => {
+    let senha = "";
+ 
+    if (tipo === "N") {
+      setContadorNormal((prev) => prev + 1);
+      senha = `N${String(contadorNormal + 1).padStart(2, "0")}`;
+    } else if (tipo === "P") {
+      setContadorPrioritario((prev) => prev + 1);
+      senha = `P${String(contadorPrioritario + 1).padStart(2, "0")}`;
+    } else if (tipo === "AP") {
+      setContadorAltaPrioridade((prev) => prev + 1);
+      const numero = contadorAltaPrioridade + 1;
+      senha = `AP0${numero < 10 ? "0" + numero : numero}`;
+    }
+ 
+    setSenhaGerada(senha);
+  };
+ 
+  return (
+    <div style={styles.container}>
+      <h1>Gerador de Senhas</h1>
+      <p style={styles.senha}>{senhaGerada || "Pressione um botão para gerar a senha"}</p>
+      <div style={styles.botoes}>
+        <button style={styles.normal} onClick={() => gerarSenha("N")}>
+          Normal
+        </button>
+        <button style={styles.prioritario} onClick={() => gerarSenha("P")}>
+          Prioritário
+        </button>
+        <button style={styles.altaPrioridade} onClick={() => gerarSenha("AP")}>
+          Alta Prioridade
+        </button>
+      </div>
+    </div>
+  );
+}
+ 
+const styles = {
+  container: {
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    margin: "50px",
+    backgroundColor: "#f4f4f4",
+    padding: "20px",
+    borderRadius: "10px",
+  },
+  senha: {
+    fontSize: "30px",
+    fontWeight: "bold",
+    margin: "20px 0",
+  },
+  botoes: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "10px",
+  },
+  normal: {
+    padding: "10px 20px",
+    fontSize: "18px",
+    border: "none",
+    cursor: "pointer",
+    color: "black",
+    backgroundColor: "#93C9F5",
+    borderRadius: "5px",
+  },
+  prioritario: {
+    padding: "10px 20px",
+    fontSize: "18px",
+    border: "none",
+    cursor: "pointer",
+    color: "black",
+    backgroundColor: "#93C9F5",
+    borderRadius: "5px",
+  },
+  altaPrioridade: {
+    padding: "10px 20px",
+    fontSize: "18px",
+    border: "none",
+    cursor: "pointer",
+    color: "black",
+    backgroundColor: "#93C9F5",
+    borderRadius: "5px",
+  },
+};
+ 
+export default App;
